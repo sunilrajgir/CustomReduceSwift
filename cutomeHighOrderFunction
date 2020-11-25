@@ -1,0 +1,42 @@
+class Lcs {
+    init() {
+        let arr = [1,2,3,4]
+        
+        let p = arr.customeReduce(initialVal: 0) { (res, num) -> Int in
+            return res+num
+        }
+        let q = arr.customeFilter { (item) -> (Bool) in
+            return item%2 == 0 ? true : false
+        }
+        let r = arr.customMap { (num) -> String in
+            return "\(num)"
+        }
+    }
+}
+extension Array {
+    func customeReduce<T>(initialVal:T,completionBlock:((_ res:T,_ num:Element)->T)) -> T {
+        var interimRes = initialVal
+        for el in self {
+            interimRes = completionBlock(interimRes,el)
+        }
+        return interimRes
+    }
+    func customeFilter(_ completionBlock:((_ item:Element)->(Bool))) -> [Element] {
+        var res = [Element]()
+        var iterator = makeIterator()
+        while let next = iterator.next() {
+            if completionBlock(next) {
+                res.append(next)
+            }
+        }
+        return res
+    }
+    func customMap<T>(_ completionBlock:((_ ele:Element)->T)) -> [T] {
+        var res = [T]()
+        var iterator = makeIterator()
+        while let next = iterator.next() {
+            res.append(completionBlock(next))
+        }
+        return res
+    }
+}
