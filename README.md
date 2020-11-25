@@ -1,0 +1,2 @@
+# CustomReduceSwift
+Custom reduce function
