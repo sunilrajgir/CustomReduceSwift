@@ -1,0 +1,39 @@
+
+class Lcs {
+    init() {
+        let arr = [1,2,3,4]
+        
+        let p = arr.customeReduce(initialVal: 0) { (res, num) -> Int in
+            return res+num
+        }
+        
+        let ar1 = ["a","b","c","d"]
+        
+        let q = ar1.customeReduce(initialVal: "") { (res, ele) -> String in
+            return res+ele
+        }
+        
+        let arr2 = ["a","a","b","b"]
+        
+        let r = arr2.customeReduce(initialVal: [:] as! [String:Int]) { (res, ele) -> [String : Int] in
+            var c = res
+            if c[ele] != nil {
+                c[ele] =  c[ele]! + 1
+            } else {
+                c[ele] = 1
+            }
+            
+            return c
+        }
+    }
+}
+
+extension Array {
+    func customeReduce<T>(initialVal:T,completionBlock:((_ res:T,_ num:Element)->T)) -> T {
+        var interimRes = initialVal
+        for el in self {
+            interimRes = completionBlock(interimRes,el)
+        }
+        return interimRes
+    }
+}
